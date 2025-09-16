@@ -1,7 +1,6 @@
 "use client"
 
 import { Sidebar } from "@/components/sidebar"
-import { useState } from "react"
 
 interface HomePageProps {
   onPageChange: (page: string) => void
