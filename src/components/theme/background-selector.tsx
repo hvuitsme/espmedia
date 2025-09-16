@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import type { Background } from "@/types/settings";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -59,7 +60,7 @@ export function BackgroundSelector({ selectedBackground, onBackgroundChange }: B
       const nextNumber = totalExistingImages + 1
       const customId = `custom-${nextNumber}`
 
-      const customBackground = {
+      const customBackground: Background = {
         id: customId,
         name: file.name.split(".")[0] || "Custom Image",
         url: base64String,
