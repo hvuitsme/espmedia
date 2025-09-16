@@ -8,11 +8,9 @@ interface HomePageProps {
 }
 
 export function HomePage({ onPageChange }: HomePageProps) {
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
-  
   return (
     <div className="flex flex-1 h-full">
-      <div onMouseEnter={() => setIsSidebarExpanded(true)} onMouseLeave={() => setIsSidebarExpanded(false)}>
+      <div>
         <Sidebar onPageChange={onPageChange} />
       </div>
 

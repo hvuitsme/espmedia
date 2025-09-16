@@ -1,11 +1,9 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useSettings } from "@/contexts/settings-context"
-import { RotateCcw } from "lucide-react"
 
 export function SettingsPage() {
-  const { resetSettings } = useSettings()
+  const { } = useSettings()
 
   return (
     <div className="p-6 h-full flex flex-col bg-white/2 border border-white/10 rounded-md">

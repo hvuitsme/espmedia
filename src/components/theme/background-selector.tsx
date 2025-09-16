@@ -4,6 +4,7 @@ import type React from "react"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import { ImageIcon, Plus, X } from "lucide-react"
 import { BACKGROUND_OPTIONS } from "@/constants/settings"
 import { useSettings } from "@/contexts/settings-context"
@@ -112,7 +113,13 @@ export function BackgroundSelector({ selectedBackground, onBackgroundChange }: B
                 }`}
               >
                 <div className="relative w-full overflow-hidden h-[150px]">
-                  <img src={bg.url || "/placeholder.svg"} className="w-full h-full object-cover" />
+                  <Image
+                    src={bg.url || "/placeholder.svg"}
+                    alt={getBackgroundName(bg.id)}
+                    fill
+                    className="w-full h-full object-cover"
+                    priority={allBackgrounds.indexOf(bg) < 3}
+                  />
                   {selectedBackground === bg.id && (
                     <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
                       <div className="w-2 h-2 bg-white rounded-full"></div>

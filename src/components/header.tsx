@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Settings, Shirt, Languages } from "lucide-react"
+import Image from "next/image"
 
 interface HeaderProps {
   currentPage: string
@@ -17,7 +18,7 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
           <div
             onClick={() => onPageChange("home")}
             className="w-8 h-8 bg-gradient-to-br bg-white rounded-lg flex items-center justify-center">
-            <img src="/icon/unique_shapes.png" alt="Home Logo" className="w-6 h-6" />
+            <Image src="/icon/unique_shapes.png" alt="Home Logo" width={24} height={24} />
           </div>
 
           {/* Right side - Navigation */}
