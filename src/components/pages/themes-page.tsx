@@ -23,38 +23,40 @@ export function ThemesPage() {
   }
 
   return (
-    <div className="p-6 pb-12 bg-white/2 border border-white/10 rounded-md">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-white drop-shadow-lg">Themes & Backgrounds</h1>
+    <div className="h-full flex flex-col bg-white/2 border border-white/10 rounded-md overflow-hidden">
+      <div className="flex-1 overflow-y-auto p-6 pb-12">
+        <div className="max-w-4xl mx-auto space-y-6">
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold text-white drop-shadow-lg">Themes & Backgrounds</h1>
+            </div>
+
+            {/* Reset Button */}
+            <Button
+              variant="outline"
+              onClick={resetSettings}
+              className="self-start flex items-center gap-2 bg-white/90 hover:bg-white"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Reset
+            </Button>
           </div>
 
-          {/* Reset Button */}
-          <Button
-            variant="outline"
-            onClick={resetSettings}
-            className="self-start flex items-center gap-2 bg-white/90 hover:bg-white"
-          >
-            <RotateCcw className="w-4 h-4" />
-            Reset
-          </Button>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Blur Control */}
+            <BlurControl blurAmount={settings.blurAmount} onBlurChange={handleBlurChange} />
+
+            {/* Brightness Control */}
+            <BrightnessControl bgBrightness={settings.bgBrightness} onBgBrightnessChange={handleBrightnessChange} />
+          </div>
+
+          {/* Background Selection */}
+          <BackgroundSelector
+            selectedBackground={settings.selectedBackground}
+            onBackgroundChange={handleBackgroundChange}
+          />
         </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Blur Control */}
-          <BlurControl blurAmount={settings.blurAmount} onBlurChange={handleBlurChange} />
-
-          {/* Brightness Control */}
-          <BrightnessControl bgBrightness={settings.bgBrightness} onBgBrightnessChange={handleBrightnessChange} />
-        </div>
-
-        {/* Background Selection */}
-        <BackgroundSelector
-          selectedBackground={settings.selectedBackground}
-          onBackgroundChange={handleBackgroundChange}
-        />
       </div>
     </div>
   )

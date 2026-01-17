@@ -12,10 +12,9 @@ import { BACKGROUND_OPTIONS } from "@/constants/settings"
 function SPAContent() {
   const [currentPage, setCurrentPage] = useState("home")
   const [previousPage, setPreviousPage] = useState("home")
-  const [animationKey, setAnimationKey] = useState(0) // Add animation key to force re-render and reset animation
+  const [animationKey, setAnimationKey] = useState(0)
   const { settings } = useSettings()
 
-  // Get current background URL
   const getCurrentBackgroundUrl = () => {
     const allBackgrounds = [...BACKGROUND_OPTIONS, ...settings.customBackgrounds]
     const currentBg = allBackgrounds.find((bg) => bg.id === settings.selectedBackground)
@@ -24,12 +23,12 @@ function SPAContent() {
 
   const handlePageChange = (page: string) => {
     if (page === currentPage) {
-      return // Don't change page or trigger animation if already on the same page
+      return
     }
 
     setPreviousPage(currentPage)
     setCurrentPage(page)
-    setAnimationKey((prev) => prev + 1) // Increment animation key to force component re-render
+    setAnimationKey((prev) => prev + 1)
   }
 
   const getAnimationClass = () => {
@@ -50,29 +49,24 @@ function SPAContent() {
 
   const renderCurrentPage = () => {
     const animationClass = getAnimationClass()
+    const commonClasses = `${animationClass} h-full`
 
     switch (currentPage) {
       case "themes":
         return (
-          <div key={`themes-${animationKey}`} className={`${animationClass} h-full`}>
-            {" "}
-            {/* Add key prop to force re-render and reset animation */}
+          <div key={`themes-${animationKey}`} className={commonClasses}>
             <ThemesPage />
           </div>
         )
       case "settings":
         return (
-          <div key={`settings-${animationKey}`} className={`${animationClass} h-full`}>
-            {" "}
-            {/* Add key prop to force re-render and reset animation */}
+          <div key={`settings-${animationKey}`} className={commonClasses}>
             <SettingsPage />
           </div>
         )
       default:
         return (
-          <div key={`home-${animationKey}`} className={`${animationClass} h-full`}>
-            {" "}
-            {/* Add key prop to force re-render and reset animation */}
+          <div key={`home-${animationKey}`} className={commonClasses}>
             <HomePage onPageChange={handlePageChange} />
           </div>
         )
@@ -85,9 +79,9 @@ function SPAContent() {
       blurAmount={settings.blurAmount}
       bgBrightness={settings.bgBrightness}
     >
-      <div className="min-h-screen grid grid-rows-[auto_1fr]">
+      <div className="h-screen overflow-hidden grid grid-rows-[auto_1fr]">
         <Header currentPage={currentPage} onPageChange={handlePageChange} />
-        <main className="my-0.5">
+        <main className="my-0.5 h-full overflow-hidden">
           {renderCurrentPage()}
         </main>
       </div>
