@@ -1,0 +1,43 @@
+{
+  "Header": {
+    "themes": "Themes",
+    "settings": "Settings",
+    "language": "Language"
+  },
+  "Themes": {
+    "title": "Themes",
+    "reset": "Reset",
+    "upload": "Upload"
+  },
+  "Settings": {
+    "title": "Settings",
+    "comming_soon": "Feature coming soon"
+  },
+  "Blurs": {
+    "blur": "Blur Effect",
+    "blurDesc": "Adjust background blur intensity",
+    "blurAmount": "Blur Amount",
+    "light": "Light",
+    "medium": "Medium",
+    "strong": "Strong",
+    "none": "None",
+    "very_blurry": "Very Blurry"
+  },
+  "Brightness": {
+    "brightness": "Brightness",
+    "brightnessDesc": "Adjust background brightness",
+    "dark": "Dark",
+    "normal": "Normal",
+    "bright": "Bright",
+    "very_bright": "Very Bright"
+  },
+  "Backgrounds": {
+    "bg1": "HaNoi",
+    "bg2": "Street Corner",
+    "bg3": "Cyberpunk",
+    "bg4": "Sakura Garden",
+    "bg5": "Forest Path",
+    "bg6": "Ocean Waves",
+    "background_desc": "Select a background"
+  }
+}

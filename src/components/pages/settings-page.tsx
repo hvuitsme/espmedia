@@ -1,8 +1,10 @@
 "use client"
 
 import { useSettings } from "@/contexts/settings-context"
+import { useTranslations } from "next-intl"
 
 export function SettingsPage() {
+  const tSettings = useTranslations("Settings")
   const { } = useSettings()
 
   return (
@@ -12,7 +14,7 @@ export function SettingsPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-white drop-shadow-lg">Settings</h1>
+              <h1 className="text-3xl font-bold text-white drop-shadow-lg">{tSettings("title")}</h1>
             </div>
           </div>
         </div>
@@ -20,7 +22,7 @@ export function SettingsPage() {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center space-y-4">
             <div className="text-6xl">⚙️</div>
-            <h2 className="text-2xl font-semibold text-white drop-shadow-lg">Feature Coming Soon</h2>
+            <h2 className="text-2xl font-semibold text-white drop-shadow-lg">{tSettings("comming_soon")}</h2>
           </div>
         </div>
       </div>

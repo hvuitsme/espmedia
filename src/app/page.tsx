@@ -8,6 +8,7 @@ import { ThemesPage } from "@/components/pages/themes-page"
 import { SettingsPage } from "@/components/pages/settings-page"
 import { SettingsProvider, useSettings } from "@/contexts/settings-context"
 import { BACKGROUND_OPTIONS } from "@/constants/settings"
+import { LanguageProvider } from "@/components/language-provider"
 
 function SPAContent() {
   const [currentPage, setCurrentPage] = useState("home")
@@ -89,10 +90,12 @@ function SPAContent() {
   )
 }
 
-export default function App() {
+export default function Page() {
   return (
     <SettingsProvider>
-      <SPAContent />
+      <LanguageProvider>
+        <SPAContent />
+      </LanguageProvider>
     </SettingsProvider>
   )
 }
