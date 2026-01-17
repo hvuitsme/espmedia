@@ -15,6 +15,7 @@ interface Settings {
   blurAmount: number
   bgBrightness: number
   customBackgrounds: CustomBackground[]
+  language: "en" | "vi"
 }
 
 interface SettingsContextType {
@@ -32,18 +33,18 @@ const defaultSettings: Settings = {
   blurAmount: 2,
   bgBrightness: 100,
   customBackgrounds: [],
+  language: "en",
 }
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<Settings>(() => {
-    // Initialize state from localStorage on the client side
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("app-settings")
       if (saved) {
         try {
-          return JSON.parse(saved)
+          return { ...defaultSettings, ...JSON.parse(saved) }
         } catch (error) {
-          console.error("Failed to parse saved settings:", error)
+          console.error(error)
           return defaultSettings
         }
       }
@@ -77,7 +78,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const resetSettings = () => {
     setSettings((prev) => ({
       ...defaultSettings,
-      customBackgrounds: prev.customBackgrounds, // Keep custom backgrounds
+      customBackgrounds: prev.customBackgrounds,
+      language: prev.language
     }))
   }
 
@@ -92,7 +94,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
 export function useSettings() {
   const context = useContext(SettingsContext)
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useSettings must be used within a SettingsProvider")
   }
   return context

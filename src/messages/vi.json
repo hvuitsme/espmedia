@@ -1,0 +1,43 @@
+{
+  "Header": {
+    "themes": "Giao diện",
+    "settings": "Cài đặt",
+    "language": "Ngôn ngữ"
+  },
+  "Themes": {
+    "title": "Giao diện",
+    "reset": "Đặt lại",
+    "upload": "Tải ảnh lên"
+  },
+  "Settings": {
+    "title": "Cài đặt",
+    "comming_soon": "Tính năng sắp ra mắt"
+  },
+  "Blurs": {
+    "blur": "Hiệu ứng mờ",
+    "blurDesc": "Điều chỉnh độ mờ hình nền",
+    "blurAmount": "Mức độ mờ",
+    "light": "Nhẹ",
+    "medium": "Trung bình",
+    "strong": "Mạnh",
+    "none": "Không",
+    "very_blurry": "Rất mờ"
+  },
+  "Brightness": {
+    "brightness": "Độ sáng",
+    "brightnessDesc": "Điều chỉnh độ sáng hình nền",
+    "dark": "Tối",
+    "normal": "Bình thường",
+    "bright": "Sáng",
+    "very_bright": "Rất sáng"
+  },
+  "Backgrounds": {
+    "bg1": "Hà Nội",
+    "bg2": "Góc phố",
+    "bg3": "Cyberpunk",
+    "bg4": "Vườn Sakura",
+    "bg5": "Rừng cây",
+    "bg6": "Sóng biển",
+    "background_desc": "Chọn hình nền"
+  }
+}

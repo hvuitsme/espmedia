@@ -5,7 +5,8 @@ import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Palette } from "lucide-react"
+import { Palette, Theater } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 interface BlurControlProps {
   blurAmount: number
@@ -13,34 +14,43 @@ interface BlurControlProps {
 }
 
 export function BlurControl({ blurAmount, onBlurChange }: BlurControlProps) {
+  const tBlur = useTranslations("Blurs")
+
   const getBlurLabel = (blur: number) => {
-    if (blur === 0) return "None"
-    if (blur <= 2) return "Light"
-    if (blur <= 6) return "Medium"
-    return "Strong"
+    if (blur === 0) return tBlur("none")
+    if (blur <= 2) return tBlur("light")
+    if (blur <= 6) return tBlur("medium")
+    return tBlur("strong")
   }
 
   return (
-    <Card className="bg-white/65 backdrop-blur-sm shadow-lg">
+    <Card className="border border-white/10 bg-white/5 backdrop-blur-sm text-white shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-white">
           <Palette className="w-5 h-5" />
-          Blur Effect
+          {tBlur("blur")}
         </CardTitle>
-        <CardDescription>Adjust background blur intensity</CardDescription>
+        <CardDescription className="text-white/70">{tBlur("blurDesc")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <Label>Blur Amount</Label>
-            <Badge variant="outline" className="bg-white">
+            <Label className="text-white">{tBlur("blurAmount")}</Label>
+            <Badge variant="outline" className="border-white/20 bg-white/10 text-white">
               {blurAmount}px {getBlurLabel(blurAmount)}
             </Badge>
           </div>
-          <Slider value={[blurAmount]} onValueChange={onBlurChange} max={15} min={0} step={0.5} className="w-full" />
-          <div className="flex justify-between text-xs text-gray-500">
-            <span>None</span>
-            <span>Very Blurry</span>
+          <Slider 
+            value={[blurAmount]} 
+            onValueChange={onBlurChange} 
+            max={15} 
+            min={0} 
+            step={0.5} 
+            className="w-full" 
+          />
+          <div className="flex justify-between text-xs text-white/50">
+            <span>{tBlur("none")}</span>
+            <span>{tBlur("very_blurry")}</span>
           </div>
         </div>
 
@@ -51,9 +61,11 @@ export function BlurControl({ blurAmount, onBlurChange }: BlurControlProps) {
               variant="outline"
               size="sm"
               onClick={() => onBlurChange([blur])}
-              className={`bg-white transition-all duration-20 ${blurAmount === blur ? "ring-2 ring-blue-500 bg-blue-50" : ""}`}
+              className={`border-white/10 bg-white/5 text-white hover:bg-white/20 transition-all duration-200 ${
+                blurAmount === blur ? "ring-2 ring-blue-500 bg-white/20" : ""
+              }`}
             >
-              {blur}px
+              {blur === 0 ? "Off" : `${blur}px`}
             </Button>
           ))}
         </div>

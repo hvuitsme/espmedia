@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Sun, Moon } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 interface BrightnessControlProps {
   bgBrightness: number
@@ -13,27 +14,29 @@ interface BrightnessControlProps {
 }
 
 export function BrightnessControl({ bgBrightness, onBgBrightnessChange }: BrightnessControlProps) {
+  const tBright = useTranslations("Brightness")
+
   const getBrightnessLabel = (bgBrightness: number) => {
-    if (bgBrightness <= 50) return "Dark"
-    if (bgBrightness <= 80) return "Normal"
-    if (bgBrightness <= 120) return "Bright"
-    return "Very Bright"
+    if (bgBrightness <= 50) return tBright("dark")
+    if (bgBrightness <= 80) return tBright("normal")
+    if (bgBrightness <= 120) return tBright("bright")
+    return tBright("very_bright")
   }
 
   return (
-    <Card className="bg-white/65 backdrop-blur-sm shadow-lg">
+    <Card className="border border-white/10 bg-white/5 backdrop-blur-sm text-white shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-white">
           <Sun className="w-5 h-5" />
-          Brightness
+          {tBright("brightness")}
         </CardTitle>
-        <CardDescription>Adjust background brightness</CardDescription>
+        <CardDescription className="text-white/70">{tBright("brightnessDesc")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <Label>Brightness</Label>
-            <Badge variant="outline" className="bg-white">
+            <Label className="text-white">{tBright("brightness")}</Label>
+            <Badge variant="outline" className="border-white/20 bg-white/10 text-white">
               {bgBrightness}% {getBrightnessLabel(bgBrightness)}
             </Badge>
           </div>
@@ -45,14 +48,14 @@ export function BrightnessControl({ bgBrightness, onBgBrightnessChange }: Bright
             step={5}
             className="w-full"
           />
-          <div className="flex justify-between text-xs text-gray-500">
+          <div className="flex justify-between text-xs text-white/50">
             <span className="flex items-center gap-1">
               <Moon className="w-3 h-3" />
-              Dark
+              {tBright("dark")}
             </span>
             <span className="flex items-center gap-1">
               <Sun className="w-3 h-3" />
-              Very Bright
+              {tBright("very_bright")}
             </span>
           </div>
         </div>
@@ -64,8 +67,8 @@ export function BrightnessControl({ bgBrightness, onBgBrightnessChange }: Bright
               variant="outline"
               size="sm"
               onClick={() => onBgBrightnessChange([brightnessValue])}
-              className={`bg-white transition-all duration-200 ${
-                bgBrightness === brightnessValue ? "ring-2 ring-blue-500 bg-blue-50" : ""
+              className={`border-white/10 bg-white/5 text-white hover:bg-white/20 transition-all duration-200 ${
+                bgBrightness === brightnessValue ? "ring-2 ring-blue-500 bg-white/20" : ""
               }`}
             >
               {brightnessValue}%
