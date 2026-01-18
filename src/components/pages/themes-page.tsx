@@ -5,10 +5,14 @@ import { BlurControl } from "@/components/theme/blur-control"
 import { BrightnessControl } from "@/components/theme/brightness-control"
 import { useSettings } from "@/contexts/settings-context"
 import { Button } from "@/components/ui/button"
-import { RotateCcw } from "lucide-react"
+import { RotateCcw, ChevronLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-export function ThemesPage() {
+interface ThemesPageProps {
+  onBack?: () => void
+}
+
+export function ThemesPage({ onBack }: ThemesPageProps) {
   const { settings, updateSettings, resetSettings } = useSettings()
   const t = useTranslations("Themes")
 
@@ -29,7 +33,15 @@ export function ThemesPage() {
       <div className="flex-1 overflow-y-auto p-6 pb-12">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="flex items-center justify-between">
-            <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={onBack}
+                className="w-9 h-9 p-0 bg-transparent text-white ring-1 ring-white/20 hover:bg-white/20 rounded-md transition-all mr-1"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </Button>
               <h1 className="text-3xl font-bold text-white drop-shadow-lg">{t("title")}</h1>
             </div>
 

@@ -14,6 +14,8 @@ function SPAContent() {
   const [currentPage, setCurrentPage] = useState("home")
   const [previousPage, setPreviousPage] = useState("home")
   const [animationKey, setAnimationKey] = useState(0)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
   const { settings } = useSettings()
 
   const getCurrentBackgroundUrl = () => {
@@ -26,6 +28,8 @@ function SPAContent() {
     if (page === currentPage) {
       return
     }
+    
+    setIsMobileMenuOpen(false)
 
     setPreviousPage(currentPage)
     setCurrentPage(page)
@@ -56,19 +60,23 @@ function SPAContent() {
       case "themes":
         return (
           <div key={`themes-${animationKey}`} className={commonClasses}>
-            <ThemesPage />
+            <ThemesPage onBack={() => handlePageChange("home")} />
           </div>
         )
       case "settings":
         return (
           <div key={`settings-${animationKey}`} className={commonClasses}>
-            <SettingsPage />
+            <SettingsPage onBack={() => handlePageChange("home")} />
           </div>
         )
       default:
         return (
           <div key={`home-${animationKey}`} className={commonClasses}>
-            <HomePage onPageChange={handlePageChange} />
+            <HomePage 
+              onPageChange={handlePageChange} 
+              isMobileMenuOpen={isMobileMenuOpen}
+              onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+            />
           </div>
         )
     }
@@ -81,7 +89,12 @@ function SPAContent() {
       bgBrightness={settings.bgBrightness}
     >
       <div className="h-screen overflow-hidden grid grid-rows-[auto_1fr]">
-        <Header currentPage={currentPage} onPageChange={handlePageChange} />
+        <Header 
+          currentPage={currentPage} 
+          onPageChange={handlePageChange}
+          onMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          isMobileMenuOpen={isMobileMenuOpen}
+        />
         <main className="my-0.5 h-full overflow-hidden">
           {renderCurrentPage()}
         </main>
