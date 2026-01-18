@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Settings, Shirt, Languages, Check } from "lucide-react"
+import { Settings, Shirt, Languages, Check, Menu } from "lucide-react"
 import Image from "next/image"
 import { useSettings } from "@/contexts/settings-context"
 import { useTranslations } from "next-intl"
@@ -10,9 +10,11 @@ import { useState } from "react"
 interface HeaderProps {
   currentPage: string
   onPageChange: (page: string) => void
+  onMenuToggle?: () => void
+  isMobileMenuOpen?: boolean
 }
 
-export function Header({ currentPage, onPageChange }: HeaderProps) {
+export function Header({ currentPage, onPageChange, onMenuToggle, isMobileMenuOpen }: HeaderProps) {
   const { settings, updateSettings } = useSettings()
   const t = useTranslations("Header")
   
@@ -32,10 +34,27 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
     <header className="sticky top-0 left-0 right-0 z-50 bg-white/2 border border-white/10 rounded-b-md">
       <div className="w-full px-3.5 py-3">
         <div className="flex items-center justify-between">
-          <div
-            onClick={() => onPageChange("home")}
-            className="w-8 h-8 bg-gradient-to-br bg-white rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
-            <Image src="/icon/unique_shapes.png" alt="Home Logo" width={24} height={24} />
+          <div className="flex items-center gap-2">
+            {currentPage === "home" && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`md:hidden w-8 h-8 transition-all duration-200 ${
+                  isMobileMenuOpen 
+                    ? "bg-transparent text-white ring-1 ring-white/20 hover:bg-white/20" 
+                    : "text-white hover:bg-white/10"
+                }`}
+                onClick={onMenuToggle}
+              >
+                <Menu className="w-5 h-5" />
+              </Button>
+            )}
+
+            <div
+              onClick={() => onPageChange("home")}
+              className="w-8 h-8 bg-gradient-to-br bg-white rounded-lg flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
+              <Image src="/icon/unique_shapes.png" alt="Home Logo" width={24} height={24} />
+            </div>
           </div>
 
           <div className="flex items-center gap-1">
@@ -55,12 +74,28 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
 
             <div 
               className="relative flex items-center"
-              onMouseEnter={() => setIsLangMenuOpen(true)}
-              onMouseLeave={() => setIsLangMenuOpen(false)}
+              onMouseEnter={() => {
+                if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+                  setIsLangMenuOpen(true)
+                }
+              }}
+              onMouseLeave={() => {
+                if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+                  setIsLangMenuOpen(false)
+                }
+              }}
             >
+              {isLangMenuOpen && (
+                <div 
+                  className="fixed inset-0 z-10 bg-transparent md:hidden"
+                  onClick={() => setIsLangMenuOpen(false)}
+                />
+              )}
+
               <Button
                 variant={"ghost"}
                 className="w-9 h-9 p-0 text-white/95 hover:text-white hover:bg-white/20 relative z-20"
+                onClick={() => setIsLangMenuOpen((prev) => !prev)}
               >
                 <Languages className="w-4 h-4" />
                 <span className="absolute -bottom-1 -right-1 text-[8px] font-bold uppercase bg-black/40 px-1 rounded text-white border border-white/10">
@@ -70,7 +105,7 @@ export function Header({ currentPage, onPageChange }: HeaderProps) {
 
               <div
                 className={`
-                  absolute top-full right-0 pt-2 w-32 transition-all duration-200 z-10 origin-top-right
+                  absolute top-full right-0 pt-2 w-32 transition-all duration-200 z-20 origin-top-right
                   ${isLangMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-2 invisible"}
                 `}
               >

@@ -4,13 +4,19 @@ import { Sidebar } from "@/components/sidebar"
 
 interface HomePageProps {
   onPageChange: (page: string) => void
+  isMobileMenuOpen?: boolean
+  onCloseMobileMenu?: () => void
 }
 
-export function HomePage({ onPageChange }: HomePageProps) {
+export function HomePage({ onPageChange, isMobileMenuOpen, onCloseMobileMenu }: HomePageProps) {
   return (
-    <div className="flex flex-1 h-full">
+    <div className="flex flex-1 h-full relative">
       <div>
-        <Sidebar onPageChange={onPageChange} />
+        <Sidebar 
+          onPageChange={onPageChange} 
+          isOpen={isMobileMenuOpen}
+          onClose={onCloseMobileMenu}
+        />
       </div>
 
       <div className={`transition-all duration-300 ease-in-out flex-1`}>
